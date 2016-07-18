@@ -1,0 +1,28 @@
+.testimonial--container {
+    box-sizing: border-box;
+    @include flex(center, center, column);
+    height: 200px;
+    width: 100%;
+    background-color: white;
+    padding: 20px 80px 20px 40px;
+    box-shadow: 0 0 10px 0 black;
+}
+
+.testimonial--quote {
+    @include flex(flex-start, space-around, column);
+    padding-left: 20px;
+    border-left: 6px solid rgb(200,200,200);
+    width: 100%;
+    flex: 1;
+    & p {
+        margin: 0;
+    }
+    & p:first-child {
+        font-style: italic;
+        font-size: 22px;
+    }
+    & p:last-child {
+        color: $blue;
+    }
+}
+

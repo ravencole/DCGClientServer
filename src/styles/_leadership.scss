@@ -1,0 +1,90 @@
+.leadership--heading {
+    // margin-top: 10px;
+    @include flex(center, center);
+    font-size: 40px;
+    height: 200px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 60px 0 rgba(0,0,0,0.3);
+}
+
+.leadership--container {
+    position: relative;
+    width: 100%;
+    @include flex(center, center);
+    background-color: white;
+    padding-bottom: 70px;
+}
+
+.blogs--container {
+    flex: 2;
+    height: 100%;
+    @include flex(center, center, column);
+}
+
+.surverys--container {
+    flex: 1;
+}
+
+.browse {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+    color: deepskyblue;
+    height: 30px;
+    margin: 20px 0;
+    width: 100%;
+    @include flex(center, center);
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.leadership--item {
+    height: 150px;
+    width: 90%;
+    padding-left: 20px;
+    border-top: 1px solid rgba(0,0,0,0.4);
+    &:nth-child(3) {
+        border-bottom: 1px solid rgba(0,0,0,0.4);
+    }
+}
+
+.leadership--item__title {
+    height: 50px;
+    font-family: Montserrat;
+    width: 100%;
+    font-size: 20px;
+    @include flex(center, flex-start);
+}
+
+.leadership--item__time {
+    height: 20px;
+    width: 100%;
+    color: rgba(0,0,0,0.4);
+    font-size: 12px
+}
+
+.leadership--item__body {
+    box-sizing: border-box;
+    height: 50px;
+    font-size: 13px;
+    padding-left: 20px;
+    @include flex(center, flex-start);
+}
+
+.leadership--item__continue {
+    height: 20px;
+    @include flex(center, flex-start);
+    color: $blue;
+    font-size: 12px;
+    font-style: italic;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+
+
+

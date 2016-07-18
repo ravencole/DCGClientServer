@@ -1,0 +1,20 @@
+.landing--container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-image: url('/images/stairsBG.jpg');
+    background-position: center;
+    background-size: cover;
+    @include flex(center, center);
+    color: white;
+    font-family: Montserrat;
+    font-size: 30px;
+    z-index: -1;
+}
+
+.landing--buffer {
+    height: 100vh;
+    width: 100%;
+}

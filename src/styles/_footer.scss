@@ -1,0 +1,164 @@
+.footer {
+    @include flex(center, center, column);
+    height: 100vh;
+    width: 100%;
+    background-color: $footerBlack;
+    color: white;
+    font-size: 18px;
+    font-family: Sintony;
+    z-index: 5;
+}
+
+.footer--title, .footer--body {
+    flex: 1;
+    width: 100%;
+}
+
+.footer--title {
+    @include flex(center, center);
+    font-size: 60px;
+    font-family: Montserrat;
+    transition: all 300ms ease;
+}
+
+.footer--body {
+    @include flex(center, space-around);
+    & > div {
+        flex: 1;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.footer--item__icon {
+    height: 150px;
+    width: 100%;
+    @include flex(center, center);
+    & svg {
+        fill: white;
+        transition: all 300ms ease;
+    }
+}
+
+.footer--tel {
+    &:hover .footer--item__icon {
+        animation: telAnimation 400ms ease;
+    }
+    &:hover .footer--item__title {
+        color: $blue;
+    }
+    &:hover svg {
+        fill: deepskyblue;
+    }
+}
+
+.footer--email {
+    &:hover .footer--email__icon {
+        transform: rotateY(180deg);
+        & svg {
+            fill: deepskyblue;
+        }
+    }
+    &:hover .footer--item__title {
+        color: $blue;
+    }
+    .footer--email__icon {
+        z-index: 10px;
+        transition: all 300ms ease;
+    }
+}
+
+.footer--address {
+    &:hover .footer--item__icon {
+        animation: mapJump 400ms ease;
+    }
+    &:hover .footer--item__title__address {
+        color: $blue;
+    }
+    &:hover svg {
+        fill: deepskyblue;
+    }
+}
+
+.footer--linkedin {
+    & .footer--item__icon svg {
+        transition: all 300ms ease;
+    }
+    &:hover svg {
+        fill: deepskyblue;
+        transform: rotate(360deg);
+    }
+    &:hover .footer--item__title {
+        color: $blue;
+    }
+}
+
+.footer--item__title {
+    height: 70px;
+    width: 100%;
+    @include flex(center, center);
+    transition: all 300ms ease;
+}
+
+.footer--item__title__address {
+    height: 70px;
+    width: 100%;
+    @include flex(center, center, column);
+    transition: all 300ms ease;
+}
+
+.footer--copyright {
+    height: 40px;
+    color: white;
+    font-size: 10px;
+    width: 100%;
+    @include flex(center, flex-start);
+    padding-left: 30px;
+    background-color: black;
+}
+
+@keyframes telAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-22deg);
+    }
+    50% {
+        transform: rotate(22deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes mapJump {
+    0% {
+        transform: translateY(0%);
+    }
+    50% {
+        transform: translateY(-20%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

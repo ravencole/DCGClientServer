@@ -1,0 +1,18 @@
+.partners--container {
+    box-sizing: border-box;
+    height: 40px;
+    background-color: white;
+    width: 100%;
+    @include flex(baseline, center);
+    font-family: Sintony;
+    font-size: 13px;
+    padding-top: 9px;
+    & span {
+        font-family: Montserrat;
+        color: deepskyblue;
+        font-size: 17px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

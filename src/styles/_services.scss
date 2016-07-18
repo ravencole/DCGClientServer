@@ -1,0 +1,119 @@
+.services--container {
+    box-sizing: border-box;
+    @include flex(center, center, column);
+    height: 100vh;
+    width: 100%;
+    background-color: $whiteTransparent;
+    padding-bottom: 60px;
+}
+
+.services--graph__container {
+    @include flex(center, space-between);
+    flex: 5;
+    width: 95%;
+    margin-top: 20px;
+}
+
+.services--graph {
+    @include flex(center, space-between, column);
+    flex: 1;
+    background-color: white;
+    height: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+    background-color: white;
+    &:first-child {
+        margin-right: 10px;
+    }
+    &:last-child {
+        margin-left: 10px;
+    }
+}
+
+.services--graph__heading {
+    font-family: Montserrat;
+    font-size: 60px;
+}
+
+
+.services--heading {
+    @include flex(center, center);
+    width: 100%;
+    flex: 1;
+    font-size: 60px;
+}
+
+.services--body {
+    @include flex(center, center);
+    flex: 5;
+    width: 95%;
+    background-color: white;
+    overflow: hidden;
+}
+
+.services--display {
+    @include flex(center, center, column);
+    font-family: Sintony;
+    height: 100%;
+    flex: 4;
+}
+
+.services--display__heading {
+    width: 100%;
+    flex: 1;
+    @include flex(center, center);
+    font-family: Montserrat;
+    font-size: 30px;
+    background-color: $servicesActive;
+    color: white;
+}
+
+.services--display__body {
+    @include flex(center, center);
+    width: 100%;
+    flex: 5;
+}
+
+.services--display__icon {
+    @include flex(center, center);
+    height: 100%;
+    flex: 1;
+}
+
+.services--display__text {
+    box-sizing: border-box;
+    @include flex(center, center);
+    padding-right: 50px;
+    height: 100%;
+    flex: 4;
+    text-indent: 50px;
+}
+
+.services--sidebar {
+    @include flex(center, center, column);
+    height: 100%;
+    flex: 1;
+    background-color: $servicesBackground;
+    box-shadow: 0 0 10px 0 black;
+}
+
+.services--sidebar__btn {
+    @include flex(center, center);
+    color: white;
+    font-size: 17px;
+    font-family: Sintony;
+    flex: 1;
+    width: 100%;
+    border-bottom: 1px solid black;
+    transition: all 100ms ease;
+    &:last-child {
+        border-bottom: 1px solid transparent;
+    }
+    &:hover {
+        background-color: $servicesHover;
+        cursor: pointer;
+    }
+    &[value='1'] {
+        background-color: $servicesActive;
+    }
+}

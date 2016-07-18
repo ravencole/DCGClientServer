@@ -1,0 +1,57 @@
+.about--container {
+    @include flex(center, space-between, column);
+    width: 100%;
+}
+
+.about--container__title {
+    height: 80px;
+    @include flex(center, center);
+    color: white;
+    font-family: Montserrat;
+    font-size: 60px;
+}
+
+.about--container__body {
+    height: 80%;
+    width: 100%;
+    @include flex( center, flex-start, column);
+}
+
+.about--container__subtitle {
+    padding: 40px 60px;
+    text-indent: 50px;
+    font-style: italic;
+    background-color: white;
+}
+
+.about--container__name {
+    font-family: Montserrat;
+    font-size: 20px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    border:1px solid white;
+    @include flex(flex-end, center);
+}
+
+.personal--container {
+    @include flex(center, center);
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+}
+
+.headshot--container {
+    flex: 1;
+    height: 100%;
+    @include flex(center, center);
+}
+
+.resume--container {
+    box-sizing: border-box;
+    height: 100%;
+    flex: 2;
+    padding: 40px;
+    & p {
+        text-indent: 20px;
+    }
+}

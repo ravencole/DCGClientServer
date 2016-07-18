@@ -1,0 +1,25 @@
+@import 'fonts';
+@import 'mixins';
+@import 'colors';
+
+@import 'nav';
+@import 'landing';
+@import 'testimonial';
+@import 'services';
+@import 'leadership.scss';
+@import 'about';
+@import 'partners';
+@import 'footer';
+
+body, html {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Rufina;
+}
+
+.container {
+    @include flex(center, center, column);
+    width: 100%;
+}
+
