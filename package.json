@@ -8,8 +8,8 @@
     "test:watch": "npm run test -- --watch --growl",
     "prebuild": "npm-run-all clean-dist build:html",
     "build": "babel-node tools/build.js",
-    "postbuild": "babel-node distServer.js",
-    "productionServer": "babel-node distServer.js",
+    "postbuild": "node distServer.js",
+    "productionServer": "node distServer.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.js"
