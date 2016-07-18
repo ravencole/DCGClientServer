@@ -1,12 +1,12 @@
-import express from 'express';
-import path from 'path';
-import open from 'open';
-import compression from 'compression';
+var express = require('express');
+var path = require('path');
+var open = require('open');
+var compression = require('compression');
 
 /*eslint-disable no-console */
 
-const port = 3000;
-const app = express();
+var port = 3000;
+var app = express();
 
 app.use(compression());
 app.use(express.static(__dirname + '/resources'));
@@ -17,10 +17,4 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
 
-app.listen(port, function(err) {
-  if (err) {
-    
-  } else {
-    open(`http://localhost:${port}`);
-  }
-});
+app.listen(port);
