@@ -76,7 +76,7 @@
 
 .industries--body {
     width: 100%;
-    padding: 20px 0;
+    padding: 40px 0;
     @include flex(center, center);
     flex: 5;
     background-color: $servicesBackground;
@@ -93,7 +93,7 @@
 
 .specialties--body {
     width: 100%;
-    padding: 20px 0;
+    padding: 40px 0;
     @include flex(center, center, column);
     flex: 5;
     background-color: $servicesBackground;
