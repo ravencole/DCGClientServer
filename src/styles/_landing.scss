@@ -4,14 +4,20 @@
     left: 0;
     height: 100vh;
     width: 100%;
-    background-image: url('/images/stairsBG.jpg');
+    background-image: url('/images/rigging.jpg');
     background-position: center;
     background-size: cover;
     @include flex(center, center);
     color: white;
     font-family: Montserrat;
     font-size: 30px;
-    z-index: -1;
+    z-index: -2;
+    transition: all 1000ms ease;
+}
+
+.landing--filter {
+    -webkit-filter: grayscale(100%) contrast(110%);
+    filter: grayscale(100%) contrast(110%);
 }
 
 .landing--buffer {

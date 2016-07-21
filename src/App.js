@@ -1,6 +1,7 @@
 import React from 'react';
 import Scroll from'react-scroll';
 import Nav from './components/Nav';
+import Request from 'superagent';
 
 const Link = Scroll.Link,
       Element = Scroll.Element;
@@ -12,7 +13,20 @@ class App extends React.Component {
         this.state = {
             mainHeading: true,
             navDark: false,
-            activeService: 0
+            activeService: 0,
+            services: [
+                {
+                    title: {
+                        rendered: ''
+                    },
+                    content: {
+                        rendered: ''
+                    },
+                    'better_featured_image': {
+                        'source_url': '#'
+                    }
+                }
+            ]
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -21,6 +35,84 @@ class App extends React.Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
+
+        if (process.env.ENVIORNMENT === 'dev') {
+            Request
+                .get('http://local.wordpress.dev/wp-json/wp/v2/services')
+                .end(function(err, res) {
+                    this.setState({services: res.body.reverse()});
+                }.bind(this));
+        } else {
+            const servicesMock = [
+                {
+                    title: {
+                        rendered: 'Program Management'
+                    },
+                    content: {
+                        rendered: '<p>A key to a program’s success is its ability to manage the critical elements of program cost, scope, schedule and risk. These must be expertly managed to achieve on time delivery within the budget while providing quality results and mitigating risk. In addition, dependencies across multiple project implementations must be controlled. Our program managers are experienced professionals whose focus is to manage and resolve program roadblocks, prioritize initiatives and optimize resources to deliver on expectations. They are accustomed to using various program management methodologies and approaches and are able to quickly adjust to an organization’s working style.</p>'
+                    },
+                    'better_featured_image': {
+                        'source_url': '/images/folder-12.svg'
+                    }
+                },
+                {
+                    title: {
+                        rendered: 'Service Delivery Transformation'
+                    },
+                    content: {
+                        rendered: '<p>A flexible delivery model is critical to stay ahead of the competition. Companies need to plan for and keep pace with changes brought about by domestic and global economic conditions, technology innovations and new regulations. Our consultants have extensive experience in assisting organizations develop and implement scalable and forward-looking service delivery models. We apply our knowledge through all aspects of the transformation lifecycle, from aligning operations with business strategy to executing transformation roadmaps.</p>'
+                    },
+                    'better_featured_image': {
+                        'source_url': '/images/paper-plane-1.svg'
+                    }
+                },
+                {
+                    title: {
+                        rendered: 'Change Management'
+                    },
+                    content: {
+                        rendered: '<p>A key objective for Change Management is to build commitment to the change rather than comply with the change so that end users and stakeholders use the new processes and tools as designed rather than creating workarounds and reverting to old habits and behaviors. We understand what drives acceptance, support and adoption to new ways of working and supporting systems; and we translate that knowledge into activities and tasks that can be tracked, measured and executed.</p>'
+                    },
+                    'better_featured_image': {
+                        'source_url': '/images/magnet-1.svg'
+                    }
+                },
+                {
+                    title: {
+                        rendered: 'Business Process Redesign'
+                    },
+                    content: {
+                        rendered: '<p>Business Process Redesign (BPR) initiatives have varying objectives, from incremental functional improvements to wholesale rethinking (Transformation). The one common theme is that changes will be made to business processes. Because driving value and providing hard benefits is not easily achieved by merely changing business processes, many organizations also need to restructure the organization and to implement new technologies. Our consultants are highly adept at striking the balance of structure, process and technology changes to successfully complete a project without causing undue burden to the organization and needless technology spending.</p>'
+                    },
+                    'better_featured_image': {
+                        'source_url': '/images/map-1.svg'
+                    }
+                },
+                {
+                    title: {
+                        rendered: 'Vendor Assessments'
+                    },
+                    content: {
+                        rendered: '<p>Organizations can struggle performing vendor evaluations, often basing their decisions on subjective criteria. Relationships with vendors can become strained resulting in unrealistic expectations. We provide an independent, objective approach to helping you select a vendor to make an informed decision. Our consultants take into consideration how each vendor best meets needs your business needs for today and in the future.</p>'
+                    },
+                    'better_featured_image': {
+                        'source_url': '/images/network.svg'
+                    }
+                },
+                {
+                    title: {
+                        rendered: 'Business Case Development'
+                    },
+                    content: {
+                        rendered: '<p>Building a compelling business case to support desired changes to an organization’s operations requires an objective and factual approach to gathering the information. A business case for change can be difficult if not challenging to cost justify. As a result many business cases focus on the softer side of benefits associated with making organizational changes, improvement of business processes and the use of technology as an enabler. This leaves some decision makers to question if the return on investment will be compelling enough to proceed. Experience tells us the foundation for a solid business case relies on combining financial metrics with one or more business, cultural and technology drivers.</p>'
+                    },
+                    'better_featured_image': {
+                        'source_url': '/images/agenda.svg'
+                    }
+                }
+            ];
+            this.setState({services: servicesMock});
+        }
     }
 
     componentWillUnmount() {
@@ -54,53 +146,19 @@ class App extends React.Component {
             }
         }
 
-        const services = [ 
-            {
-                name: 'Merger Integration',
-                icon: 'add-3.svg',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum ipsum id odio laoreet, rutrum gravida felis tempor. Sed aliquam porta ullamcorper. Nullam rutrum auctor efficitur. In in neque felis. Pellentesque fermentum efficitur molestie. Morbi vitae finibus sem, nec pretium mauris. Cras in iaculis dolor. Donec ut leo purus. Maecenas facilisis in nibh dignissim ultricies. Praesent et elit nec sem suscipit fermentum id ac elit. Integer dapibus ante arcu, at commodo dui bibendum sed. Proin venenatis placerat erat vitae iaculis. Fusce ultrices bibendum justo vitae consequat. Donec risus nunc, consequat id turpis sed, bibendum eleifend libero. Curabitur vehicula tristique diam, sed ornare tortor tempor ac. Maecenas vitae placerat nisi, id suscipit massa.'
-            }, 
-            {
-                name: 'Technology',
-                icon: 'cloud-computing-2.svg',
-                text: 'Curabitur facilisis elit nunc, id tempus purus pretium laoreet. Nam ut lorem id justo venenatis auctor. Quisque et pellentesque ipsum, elementum condimentum ex. Nam ut urna interdum ipsum viverra molestie. Pellentesque a nibh ut massa finibus mattis in et risus. Etiam sagittis sit amet purus ut ornare. Quisque sodales eleifend orci in malesuada. Suspendisse potenti. Curabitur vitae magna porttitor, porttitor nibh ac, interdum nibh. Vivamus dignissim eget lorem in lobortis. Nunc consequat eleifend purus id feugiat. Nunc in enim mattis magna tincidunt cursus. Phasellus at feugiat velit, porttitor convallis ante. Vestibulum leo lacus, aliquet sed turpis sed, euismod ullamcorper metus. Vestibulum at pellentesque mi, ac lacinia elit. Vestibulum in dolor et tortor placerat vehicula.'
-            }, 
-            {
-                name: 'Model Change',
-                icon: 'paper-plane-1.svg',
-                text: 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas vel sollicitudin sapien. Suspendisse eget dolor mauris. Vivamus eu diam finibus, varius mi in, lobortis enim. Ut libero justo, sollicitudin et diam nec, pulvinar faucibus nibh. Nullam ullamcorper luctus condimentum. Nunc magna mi, porta non ex quis, malesuada luctus ipsum. Integer ut faucibus enim. Sed convallis, urna porta auctor pretium, magna nisl pellentesque sem, eu posuere leo enim nec risus. Maecenas aliquet tellus a erat mollis, id semper tortor feugiat. Ut in fringilla felis. Mauris et dolor semper quam elementum aliquet a nec mauris. Etiam a diam id magna venenatis aliquet quis elementum est. Mauris sit amet mattis magna.'
-            }, 
-            {
-                name: 'IT Optimization',
-                icon: 'battery.svg',
-                text: 'Curabitur imperdiet luctus viverra. Curabitur leo risus, lobortis non mattis eget, scelerisque vel nisi. Fusce molestie eu mi vitae bibendum. Sed tempus tortor aliquet lobortis cursus. Donec tempor ipsum a turpis suscipit, sit amet pulvinar odio egestas. Suspendisse ac tempor ipsum, sed faucibus quam. Duis eget metus fringilla nunc cursus maximus ut gravida massa. Vestibulum eget aliquet quam.'
-            }, 
-            {
-                name: 'Sustainability',
-                icon: 'worldwide.svg',
-                text: 'Aenean ornare turpis in leo volutpat varius. Vivamus dui velit, luctus a auctor a, efficitur in dui. Morbi consequat aliquam maximus. Morbi porta ipsum non ante tincidunt maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam ac felis eu augue tempor luctus. Cras porta felis ut orci laoreet varius nec eu justo. Nam eu ligula vulputate, lacinia ex a, aliquet magna. Nam non augue vel metus sollicitudin pellentesque lacinia sed mi. In nec metus magna. Ut ac bibendum purus. Ut nulla magna, consectetur nec luctus sed, finibus hendrerit nisi. Morbi id volutpat leo, ut interdum massa. Fusce et finibus mauris, sed molestie tellus. Donec volutpat sapien sed dolor commodo pretium. Pellentesque pharetra neque arcu.'
-            }, 
-            {
-                name: 'Acquisitions',
-                icon: 'agenda.svg',
-                text: 'Donec tempor ipsum a turpis suscipit, sit amet pulvinar odio egestas. Suspendisse ac tempor ipsum, sed faucibus quam. Duis eget metus fringilla nunc cursus maximus ut gravida massa. Vestibulum eget aliquet quam.  lacinia sed mi. In nec metus magna. Ut ac bibendum purus. Ut nulla magna, consectetur nec luctus sed, finibus hendrerit nisi. Morbi id volut.'
-            } 
-        ];
-
         const renderServicesDisplay = () => {
-            const currentService = services[this.state.activeService];
+            const currentService = this.state.services[this.state.activeService];
 
             return (
                 <div className="services--display">
                     <div className="services--display__heading">
-                        { currentService.name }
+                        { currentService.title.rendered }
                     </div>
                     <div className="services--display__body">
                         <div className="services--display__icon">
-                            <img src={`/images/${currentService.icon}`} height="90px" />
+                            <img height="160px" src={currentService['better_featured_image']['source_url']} />
                         </div>
-                        <div className="services--display__text">
-                            { currentService.text }
+                        <div className="services--display__text" dangerouslySetInnerHTML={{ __html: currentService.content.rendered }}>
                         </div>
                     </div>
                 </div>
@@ -108,7 +166,7 @@ class App extends React.Component {
         }
 
         const renderServicesSidebarButtons = () => {
-            return services.map((service, i) => {
+            return this.state.services.map((service, i) => {
                 return (
                     <div 
                         key={`servicessidebarbtn${i}`} 
@@ -116,7 +174,7 @@ class App extends React.Component {
                         onClick={() => this.servicesDisplaySwitch(i)} 
                         className="services--sidebar__btn"
                     >
-                        { service.name }
+                        { service.title.rendered }
                     </div>
                 );
             });
@@ -125,7 +183,7 @@ class App extends React.Component {
         return (
             <div className="container">
                 <Nav navDark={this.state.navDark} Link={Link}/>
-                <div className="landing--container">
+                <div className={!this.state.mainHeading ? "landing--container" : "landing--container landing--filter"}>
                     <h1 style={ this.state.mainHeading ? styles.show : styles.hide }>Discover Consulting Group</h1>
                 </div>
                 <Element name="home" className="landing--buffer"></Element>
@@ -176,8 +234,37 @@ class App extends React.Component {
                 <Element name="about" className="about--container">
                     <h1 className="about--container__title">Who We Are</h1>
                     <div className="about--container__body">
-                        <div className="about--container__subtitle">
-                                 Discover Consulting Group was established with the goal of helping solve our clients’ most challenging operational and technical issues. Our team of professionals has successfully delivered strategy, operations and technology projects for large multinational organizations spanning the financial services, life sciences, healthcare, manufacturing, retail and telecommunications industries and federal, state & local government and higher education institutions. Our experience spans a broad spectrum of specialties, including management, finance, human resources and information technology.
+                        <div className="about--container__company">
+                            <div className="company--heading"><span>Discover Consulting Group</span> was established with the goal of helping solve our clients’ most challenging operational and technical issues.</div>
+                            <div className="company--subHeading">For over 25 years our team of professionals has successfully delivered strategy, operations and technology projects for large multinational organizations.</div>
+                            <div className="company--body">
+                                <div className="industries--container">
+                                    <div className="industries--heading">We have experience in a large amount of industries:</div>
+                                    <div className="industries--body">
+                                        <div>
+                                            <div className="intustries--item">Government</div>
+                                            <div className="intustries--item">Higher Education Institutions</div>
+                                            <div className="intustries--item">Financial Services</div>
+                                            <div className="intustries--item">Life Sciences</div>
+                                        </div>
+                                        <div>
+                                            <div className="intustries--item">Healthcare</div>
+                                            <div className="intustries--item">Manufacturing</div>
+                                            <div className="intustries--item">Retail</div>
+                                            <div className="intustries--item">Telecommunications</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="specialties--container">
+                                    <div className="specialties--heading">We have a broad range of specialties:</div>
+                                    <div className="specialties--body">
+                                        <div className="specialties--item">Management</div>
+                                        <div className="specialties--item">Finance</div>
+                                        <div className="specialties--item">Human Resources</div>
+                                        <div className="specialties--item">Information Technology</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="about--container__name">
                             <h1>Manny Ramirez</h1>
