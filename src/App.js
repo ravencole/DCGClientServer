@@ -26,7 +26,8 @@ class App extends React.Component {
                         'source_url': '#'
                     }
                 }
-            ]
+            ],
+            landingTextIndex: 0
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -35,6 +36,13 @@ class App extends React.Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
+
+        setInterval(function() {
+            if (this.state.landingTextIndex >= 4) {
+                return this.setState({landingTextIndex: 0});
+            }
+            this.setState({ landingTextIndex: this.state.landingTextIndex + 1 });
+        }.bind(this), 8000);
 
         if (process.env.ENVIORNMENT === 'dev') {
             Request
@@ -139,12 +147,30 @@ class App extends React.Component {
     render() {
         const styles = {
             show: {
-                display: 'initial'
+                opacity: 1
             },
             hide: {
-                display: 'none'
+                opacity: 0
             }
         }
+
+        const landingText = [
+            {
+                text: 'Connect and engage employees using socal technologies are becoming common place to increase workforce productivity'
+            },
+            {
+                text: 'A new era of technology innovations driving transformational hanges at a faster pace within HCM'
+            },
+            {
+                text: 'Simplifying your business prcoess will have a major impact on the cost savings and effiencies you realize'
+            },
+            {
+                text: 'Aligning your HR organization\'s initiatives with the company\'s strategy is a key factor in meeting the company\'s performace goals'
+            },
+            {
+                text: 'Let Discover Consulting Group provide the path forward in transforming your HR organization in an ever changing business enviornment'
+            }
+        ];
 
         const renderServicesDisplay = () => {
             const currentService = this.state.services[this.state.activeService];
@@ -184,7 +210,9 @@ class App extends React.Component {
             <div className="container">
                 <Nav navDark={this.state.navDark} Link={Link}/>
                 <div className={!this.state.mainHeading ? "landing--container" : "landing--container landing--filter"}>
-                    <h1 style={ this.state.mainHeading ? styles.show : styles.hide }>Discover Consulting Group</h1>
+                    <div className="landing--text__container" style={ this.state.mainHeading ? styles.show : styles.hide }>
+                        <div className="landing--text">{ landingText[this.state.landingTextIndex].text }</div>
+                    </div>
                 </div>
                 <Element name="home" className="landing--buffer"></Element>
                 <div className="testimonial--container">
