@@ -28,8 +28,22 @@ class App extends React.Component {
                 }
             ],
             landingTextIndex: 0,
-            landingText: [],
-            contacts: {}
+            landingText: [
+                {
+                    content: {
+                        rendered: ''
+                    }
+                }
+            ],
+            contacts: {},
+            testimonials: [
+                {
+                    acf: {
+                        quote: '',
+                        attribution: ''
+                    }
+                }
+            ]
         }
 
         this.handleScroll = this.handleScroll.bind(this);
