@@ -298,6 +298,8 @@ class App extends React.Component {
             });
         }
 
+        if (this.state.testimonials) {
+
         return (
             <div className="container">
                 <Nav navDark={this.state.navDark} Link={Link} email={ this.state.contacts.email } phone={ this.state.contacts['phone_number'] }/>
@@ -531,6 +533,9 @@ class App extends React.Component {
                 </Element>
             </div>
         );
+        } else {
+            return ( <div></div> );
+        }
     }
 }
 
