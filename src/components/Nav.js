@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Nav = (props) => {
-    const { Link } = props;
+    const { Link, email, phone } = props;
 
     const styles = {
         navLogoDark: {
@@ -23,11 +23,11 @@ const Nav = (props) => {
             <div className="nav--contact">
                 <div className="nav--email">
                     <img src="/images/file.svg" height="20px" />
-                    <div>info@discovergcllc.com</div>
+                    <div>{ email }</div>
                 </div>
                 <div className="nav--tel">
                     <img src="/images/smartphone-6.svg" height="20px" />
-                    <div>(610) 772-3148</div>
+                    <div>{ phone }</div>
                 </div>
             </div>
             <Link to="home" smooth={true} spy={true} duration={900} className="nav--logo" style={ props.navDark && styles.navLogoDark || {}}>

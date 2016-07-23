@@ -1,7 +1,6 @@
 .testimonial--container {
     box-sizing: border-box;
     @include flex(center, center, column);
-    height: 200px;
     width: 100%;
     background-color: white;
     padding: 20px 80px 20px 40px;
@@ -11,6 +10,8 @@
 .testimonial--quote {
     @include flex(flex-start, space-around, column);
     padding-left: 20px;
+    margin-bottom: 20px;
+    height: 160px;
     border-left: 6px solid rgb(200,200,200);
     width: 100%;
     flex: 1;
@@ -23,6 +24,9 @@
     }
     & p:last-child {
         color: $blue;
+    }
+    &:last-child {
+        margin-bottom: 0;
     }
 }
 

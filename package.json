@@ -2,7 +2,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
-    "start": "ENVIORNMENT=dev npm-run-all --parallel open:src test:watch",
+    "start": "set ENVIORNMENT=dev && npm-run-all --parallel open:src test:watch",
     "open:src": "babel-node server.js",
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --reporter spec tools/testSetup.js \"tests/**/*.test.js\"",
     "test:watch": "npm run test -- --watch --growl",

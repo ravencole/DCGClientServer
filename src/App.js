@@ -27,7 +27,9 @@ class App extends React.Component {
                     }
                 }
             ],
-            landingTextIndex: 0
+            landingTextIndex: 0,
+            landingText: [],
+            contacts: {}
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -44,7 +46,89 @@ class App extends React.Component {
             this.setState({ landingTextIndex: this.state.landingTextIndex + 1 });
         }.bind(this), 8000);
 
-        if (process.env.ENVIORNMENT === 'dev') {
+        const env = 'live';
+
+        if (env === 'dev' ) {
+            Request
+                .get('http://local.wordpress.dev/wp-json/wp/v2/testimonials')
+                .end(function(err, res) {
+                    console.log(res.body);
+                    this.setState({ testimonials: res.body });
+                }.bind(this));
+        } else {
+            const testimonials = [
+                {
+                    acf: {
+                        quote: "&quot;Discover Consulting 666 Group provided our complex Payroll implementation project with creative leadership and guidance to get us through the finish line, and helped us set the foundation to achieve our vision for Shared Services.&quot;<br />\r\n",
+                        attribution: "Executive Director of Shared Services for a Fortune 500 Company in the Construction Industry"
+                    }
+                }
+            ];
+
+            this.setState({ testimonials: testimonials });
+        }
+
+        console.log(this.state.testimonials);
+
+        if (env === 'dev') {
+            Request
+                .get('http://local.wordpress.dev/wp-json/wp/v2/contact')
+                .end(function(err, res) {
+                    this.setState({contacts: res.body[0].acf});
+                }.bind(this));
+        } else {
+            const contacts = {
+                email: 'info@discovercgllc.com',
+                'phone_number': '(610) 772-3148',
+                street: '42 Thornbird Way',
+                city: 'Newtown Square',
+                state: 'Pennsylavnia',
+                country: 'United States',
+                'zip-code': '19073',
+                linkedin: 'https://www.linkedin.com/company/discover-consulting-group-llc'
+            }
+
+            this.setState({ contacts: contacts });
+        }
+
+        if (env === 'dev') {
+            Request
+                .get('http://local.wordpress.dev/wp-json/wp/v2/landing')
+                .end(function(err, res) {
+                    this.setState({landingText: res.body});
+                }.bind(this));
+        } else {
+            const landingText = [
+                {
+                    content: {
+                        rendered: 'Connect and engage employees using socal technologies are becoming common place to increase workforce productivity'
+                    }
+                },
+                {
+                    content: {
+                        rendered: 'A new era of technology innovations driving transformational hanges at a faster pace within HCM'
+                    }
+                },
+                {
+                    content: {
+                        rendered: 'Simplifying your business prcoess will have a major impact on the cost savings and effiencies you realize'
+                    }
+                },
+                {
+                    content: {
+                        rendered: 'Aligning your HR organization\'s initiatives with the company\'s strategy is a key factor in meeting the company\'s performace goals'
+                    }
+                },
+                {
+                    content: {
+                        rendered: 'Let Discover Consulting Group provide the path forward in transforming your HR organization in an ever changing business enviornment'
+                    }
+                }
+            ];
+            this.setState({ landingText: landingText });
+        }
+
+        if (env === 'dev') {
             Request
                 .get('http://local.wordpress.dev/wp-json/wp/v2/services')
                 .end(function(err, res) {
@@ -128,13 +212,14 @@ class App extends React.Component {
     }
 
     handleScroll(e) {
-        if (document.body.scrollTop > 614) {
+        const height = window.innerHeight;
+        if (document.body.scrollTop > height - 70) {
             return this.setState({navDark: true});
         }
 
         this.setState({navDark: false});
 
-        if (document.body.scrollTop > 390) {
+        if (document.body.scrollTop > (height / 2) + 100) {
             return this.setState({mainHeading: false});
         }
         this.setState({mainHeading: true});
@@ -153,24 +238,6 @@ class App extends React.Component {
                 opacity: 0
             }
         }
-
-        const landingText = [
-            {
-                text: 'Connect and engage employees using socal technologies are becoming common place to increase workforce productivity'
-            },
-            {
-                text: 'A new era of technology innovations driving transformational hanges at a faster pace within HCM'
-            },
-            {
-                text: 'Simplifying your business prcoess will have a major impact on the cost savings and effiencies you realize'
-            },
-            {
-                text: 'Aligning your HR organization\'s initiatives with the company\'s strategy is a key factor in meeting the company\'s performace goals'
-            },
-            {
-                text: 'Let Discover Consulting Group provide the path forward in transforming your HR organization in an ever changing business enviornment'
-            }
-        ];
 
         const renderServicesDisplay = () => {
             const currentService = this.state.services[this.state.activeService];
@@ -206,20 +273,28 @@ class App extends React.Component {
             });
         }
 
+        const renderTestimonials = () => {
+            return this.state.testimonials.map(testimonial => {
+                return (
+                    <div className="testimonial--quote">
+                        <p dangerouslySetInnerHTML={{ __html: testimonial.acf.quote }}></p>
+                        <p>- { testimonial.acf.attribution }</p>
+                    </div>
+                );
+            });
+        }
+
         return (
             <div className="container">
-                <Nav navDark={this.state.navDark} Link={Link}/>
+                <Nav navDark={this.state.navDark} Link={Link} email={ this.state.contacts.email } phone={ this.state.contacts['phone_number'] }/>
                 <div className={!this.state.mainHeading ? "landing--container" : "landing--container landing--filter"}>
                     <div className="landing--text__container" style={ this.state.mainHeading ? styles.show : styles.hide }>
-                        <div className="landing--text">{ landingText[this.state.landingTextIndex].text }</div>
+                        <div className="landing--text" dangerouslySetInnerHTML={{ __html: this.state.landingText[this.state.landingTextIndex].content.rendered }}></div>
                     </div>
                 </div>
                 <Element name="home" className="landing--buffer"></Element>
                 <div className="testimonial--container">
-                    <div className="testimonial--quote">
-                        <p>"Discover Consulting Group provided our complex Payroll implementation project with creative leadership and guidance to get us through the finish line, and helped us set the foundation to achieve our vision for Shared Services."</p>
-                        <p>- Executive Director of Shared Services for a Fortune 500 Company in the Construction Industry</p>
-                    </div>
+                    { renderTestimonials() }
                 </div>
                 <Element name="services" className="services--container">
                     <div className="services--heading">Services</div>
@@ -332,7 +407,7 @@ class App extends React.Component {
 
                             </div>
                             <div className="footer--item__title">
-                                <div>info@discovercgllc.com</div>
+                                <div>{ this.state.contacts.email }</div>
                             </div>
                         </div>
                         <div className="footer--tel">
@@ -362,7 +437,7 @@ class App extends React.Component {
                                 </svg>
                             </div>
                             <div className="footer--item__title">
-                                <div>(610) 772-3148</div>
+                                <div>{ this.state.contacts['phone_number'] }</div>
                             </div>
                         </div>
                         <div className="footer--address">
@@ -419,9 +494,9 @@ class App extends React.Component {
 
                             </div>
                             <div className="footer--item__title__address">
-                                <div>42 Thornbird Way</div>
-                                <div>Newtown Square, Pennsylvania</div> 
-                                <div>United States 19073</div>
+                                <div>{ this.state.contacts.street }</div>
+                                <div>{ this.state.contacts.city }, { this.state.contacts.state }</div> 
+                                <div>{ this.state.contacts.country ? this.state.contacts.country : '' } { this.state.contacts['zip_codes'] }</div>
                             </div>
                         </div>
                         <div className="footer--linkedin">
